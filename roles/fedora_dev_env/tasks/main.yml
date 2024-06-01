@@ -1,0 +1,104 @@
+- name: OS | Install dnf packages
+  ansible.builtin.dnf:
+    name:
+      - vim
+      - fastfetch
+      - neovim
+      - wget
+      - kitty
+      - bat
+      - htop
+      - python3
+      - python3-pip
+      - git
+      - tmux
+    state: present
+
+- name: Ansible | Install required pip packages
+  ansible.builtin.pip:
+    name:
+      - ansible
+      - ansible-lint
+      - ansible-dev-environment
+      - ansible-creator
+    extra_args: --user
+
+- name: Fonts | Create a directory if it does not exist
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.local/share/fonts"
+    state: directory
+    mode: "0755"
+
+- name: Fonts | Change file ownership, group and permissions
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.local/share/fonts"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0755"
+
+- name: Fonts | Download Nerdfonts CascadiaCode
+  ansible.builtin.get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/CascadiaCode.zip
+    dest: "/home/{{ username }}/.local/share/fonts/CascadiaCode.zip"
+    mode: "0444"
+
+- name: Fonts | Unarchive a file that is already on the remote machine
+  ansible.builtin.unarchive:
+    src: "/home/{{ username }}/.local/share/fonts/CascadiaCode.zip"
+    dest: "/home/{{ username }}/.local/share/fonts/"
+    remote_src: true
+
+- name: OS | Enable and start SSHD
+  ansible.builtin.service:
+    name: sshd
+    state: started
+    enabled: true
+
+- name: Shell | Collect pfetch
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/dylanaraps/pfetch/master/pfetch"
+    dest: "/usr/bin/pfetch"
+    mode: "0777"
+
+- name: Shell | Collect the git status prompt shell script
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh"
+    dest: "/home/{{ username }}/.git-prompt.sh"
+    mode: "0777"
+
+- name: Shell | Push out bashrc template
+  ansible.builtin.template:
+    src: "templates/bashrc.j2"
+    dest: "/home/{{ username }}/.bashrc"
+    mode: "0644"
+
+- name: Shell | Push out vimrc template
+  ansible.builtin.template:
+    src: "templates/vimrc.j2"
+    dest: "/home/{{ username }}/.vimrc"
+    mode: "0644"
+
+- name: Shell | Push out tmux.conf template
+  ansible.builtin.template:
+    src: "templates/tmux.conf.j2"
+    dest: "/home/{{ username }}/.tmux.conf"
+    mode: "0644"
+
+- name: OS | Patching packages
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+    update_only: true
+  notify: Reboot Host
+
+- name: BAT | Add catppuccin mocha theme
+  ansible.builtin.shell:
+    cmd: 'mkdir -p "$(bat --config-dir)/themes"'
+
+- name: BAT | Add catppuccin mocha theme
+  ansible.builtin.shell:
+    cmd: 'wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme'
+
+- name: BAT | Re-cache BAT
+  ansible.builtin.shell:
+    cmd: "bat cache --build"
