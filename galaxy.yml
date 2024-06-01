@@ -1,0 +1,7 @@
+title: JacobVHS dev_env Collection
+description: My Ansible collection of roles for config managing Linux and MACOS.
+author: Jacob Schreuder
+email: jacobdschreuder@gmail.com
+license: Apache 2.0
+namespace: jacobvhs
+version: 1.0.0
