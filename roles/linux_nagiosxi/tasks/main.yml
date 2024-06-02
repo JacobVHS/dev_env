@@ -1,0 +1,10 @@
+---
+- name: Install Nagios XI on CentOS 9 Stream
+  ansible.builtin.include_tasks:
+    file: centos9.yml
+  when: ansible_distribution == 'CentOS'
+
+- name: Install Nagios XI on RHEL 9
+  ansible.builtin.include_tasks:
+    file: rhel9.yml
+  when: ansible_distribution == 'Red Hat'

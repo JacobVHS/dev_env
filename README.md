@@ -5,5 +5,5 @@ This collection contains Ansible roles to deploy configurations and templates fo
 ## Installation
 
 ```
-ansible-galaxy install jacobvhs.dev_env
+ansible-galaxy install jacobvhs.unix_conf_management
 ```

@@ -1,0 +1,31 @@
+---
+- name: Add the Nagios XI GPG key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://repo.nagios.com/GPG-KEY-NAGIOS-V3
+
+- name: Add the Nagios XI repository
+  ansible.builtin.dnf:
+    name: 'https://repo.nagios.com/nagios/9/nagios-repo-9-2.el9.noarch.rpm'
+    state: present
+    disable_gpg_check: true
+
+- name: Add EPEL
+  ansible.builtin.dnf:
+    name: 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm'
+    state: present
+
+- name: Enable code ready builder
+  ansible.builtin.command: "subscription-manager repos --enable codeready-builder-for-rhel-9-x86_64-rpms"
+  changed_when: false
+
+- name: Run package update
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+    update_only: true
+
+- name: Install Nagios XI 2024R1.1.1
+  ansible.builtin.dnf:
+    name: nagiosxi-2024R1.1.1
+    state: present
