@@ -14,4 +14,4 @@ ansible-galaxy install jacobvhs.unix_conf_management
 Jacob Schreuder
 
 ## Publication
-[Link text](https://galaxy.ansible.com/ui/repo/published/jacobvhs/unix_conf_management/)
+[Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/jacobvhs/unix_conf_management/)
