@@ -1,7 +1,7 @@
-# MacOS Development Environment Configuration Management
+# Fedora Development Environment Configuration Management
 
 ## Use Case
-Purpose of this playbook is to install packages, programs and configurations needed for my development workflow via Pip, homebrew and shell. Sudo elevation is required and pip will apply to all users.
+Purpose of this playbook is to install packages, programs and configurations needed for my development workflow via Pip, Fedora repo and shell. Sudo elevation is required and pip will apply to all users.
 
 ### Prepares the following:
 - Ansible
