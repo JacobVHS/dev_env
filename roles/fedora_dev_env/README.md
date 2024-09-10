@@ -15,6 +15,8 @@ Purpose of this playbook is to install packages, programs and configurations nee
 ---
 - name: Config Manage Fedora
   become: true
+  vars:
+    username: jacob
   hosts: all
   roles:
     - jacobvhs.unix_conf_management.fedora_dev_env

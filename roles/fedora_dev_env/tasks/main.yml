@@ -89,7 +89,6 @@
     name: "*"
     state: latest
     update_only: true
-  notify: Reboot Host
 
 - name: BAT | Add catppuccin mocha theme
   ansible.builtin.shell:
