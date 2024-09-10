@@ -84,6 +84,12 @@
     dest: "/home/{{ username }}/.tmux.conf"
     mode: "0644"
 
+- name: Shell | Push out kitty.conf
+  ansible.builtin.template:
+    src: "templates/kitty.conf.j2"
+    dest: "/home/{{ username }}/.config/kitty/kitty.conf"
+    mode: "0644"
+
 - name: OS | Patching packages
   ansible.builtin.dnf:
     name: "*"
