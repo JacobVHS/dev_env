@@ -10,5 +10,5 @@ Role installs NagiosXI from official RPM and updates all packages.
   become: true
   hosts: all
   roles:
-    - jacobvhs.unix_conf_management.linux_nagiosxi
+    - jacobvhs.unix_conf_management.nagiosxi
 ```

@@ -1,4 +1,4 @@
-### ANSIBLE-ROLE-K3s
+### k3s
 
 ---
 
@@ -75,7 +75,7 @@ Use the role in a playbook:
 - name: Setup K3s Cluster
   hosts: all
   roles:
-    - JacobVHS.ansible-role-k3s
+    - JacobVHS.unix_conf_management.k3s
 ```
 
 ---

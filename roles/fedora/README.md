@@ -1,4 +1,4 @@
-# Fedora Development Environment Configuration Management
+# Fedora
 
 ## Use Case
 Purpose of this playbook is to install packages, programs and configurations needed for my development workflow via Pip, Fedora repo and shell. Sudo elevation is required and pip will apply to all users.
@@ -19,5 +19,5 @@ Purpose of this playbook is to install packages, programs and configurations nee
     username: jacob
   hosts: all
   roles:
-    - jacobvhs.unix_conf_management.fedora_dev_env
+    - jacobvhs.unix_conf_management.fedora
 ```

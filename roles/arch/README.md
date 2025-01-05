@@ -1,4 +1,4 @@
-# ansible-role-arch
+# Arch
 This ansible role configures Arch Linux to run my desktop environment configuration and other shell configs.
 
 A couple of assumptions are made for this role:
@@ -19,7 +19,7 @@ ansible-galaxy role install JacobVHS.arch_conf
   vars:
     username: "jacob"
   roles:
-    - JacobVHS.ansible-role-arch
+    - JacobVHS.unix_conf_management.arch
 ```
 ```shell
 ansible-playbook playbook.yaml

@@ -1,8 +1,8 @@
-# ansible-role-macOS
+# macos
 
 ## Installation
 ```shell
-ansible-galaxy role install JacobVHS.macos_conf
+ansible-galaxy role install JacobVHS.macos
 ```
 
 ## Usage Example
@@ -17,7 +17,7 @@ ansible-galaxy role install JacobVHS.macos_conf
     homebrew_casks:
       - kitty
   roles:
-    - JacobVHS.macos_conf
+    - JacobVHS.unix_conf_management.macos
 ```
 ```shell
 ansible-playbook playbook.yaml
