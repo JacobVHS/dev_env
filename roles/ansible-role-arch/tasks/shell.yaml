@@ -1,0 +1,41 @@
+---
+
+- name: Install shell tools and cli packages
+  community.general.pacman:
+    name: "{{ base_packages }}"
+    state: present
+
+- name: Ensure git is installed
+  ansible.builtin.package:
+    name: git
+    state: present
+
+- name: Clone the repository
+  ansible.builtin.git:
+    repo: https://github.com/JacobVHS/os_config
+    dest: /tmp/os_config
+    force: false
+    version: latest
+
+- name: Ensure destination directory exists
+  ansible.builtin.file:
+    path: /home/jacob/.config
+    state: directory
+    mode: "0700"
+
+- name: Synchronize files from repo to target directory
+  ansible.posix.synchronize:
+    src: /tmp/os_config/arch/config/
+    dest: /home/jacob/.config/
+    rsync_opts:
+      - "--ignore-existing"
+  delegate_to: localhost
+
+- name: Apply zsh config
+  ansible.builtin.copy:
+    src: /home/{{ username }}/.config/zshrc
+    dest: "/home/{{ username }}/.zshrc"
+    mode: "0700"
+    owner: jacob
+    group: jacob
+    remote_src: true

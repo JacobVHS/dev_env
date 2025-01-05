@@ -1,0 +1,9 @@
+---
+
+- name: Install shell utilities
+  ansible.builtin.include_tasks:
+    file: shell.yaml
+
+- name: Setup Hyprland Environment on Arch Linux
+  ansible.builtin.include_tasks:
+    file: gui.yaml

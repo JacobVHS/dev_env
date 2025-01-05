@@ -1,0 +1,23 @@
+---
+- name: Ensure cmdline.txt contains required kernel parameters
+  ansible.builtin.lineinfile:
+    path: /boot/firmware/cmdline.txt
+    regexp: '.*cgroup_enable=memory cgroup_memory=1 systemd.unified_cgroup_hierarchy=1.*'
+    line: '{{ cmdline_txt | regex_replace("\\s+", " ") }}'
+    state: present
+  vars:
+    cmdline_txt: "{{ lookup('file', '/boot/firmware/cmdline.txt') }} cgroup_enable=memory cgroup_memory=1 systemd.unified_cgroup_hierarchy=1"
+
+- name: Reboot the system if kernel parameters were updated
+  ansible.builtin.reboot:
+    msg: "Rebooting to apply cgroup v2 configuration"
+    connect_timeout: 30
+    pre_reboot_delay: 5
+    post_reboot_delay: 30
+  when: ansible_facts['kernel'] not in ['5.10', '6.0', 'latest-stable-d-run-reboot']
+
+- name: Wait for the system to boot back up after reboot
+  ansible.builtin.wait_for_connection:
+    delay: 5
+    timeout: 30
+    sleep: 5

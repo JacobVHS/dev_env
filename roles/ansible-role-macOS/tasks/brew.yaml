@@ -1,0 +1,41 @@
+---
+
+- name: Ensuring Homebrew Is Installed
+  ansible.builtin.stat:
+    path: /opt/homebrew/bin/brew
+  register: homebrew_check
+
+- name: Fail If Homebrew Is Not Installed and install_homebrew_if_missing Is False
+  ansible.builtin.fail:
+    msg: Homebrew is missing...Install from https://brew.sh/
+  when:
+    - not homebrew_check.stat.exists
+    - not install_homebrew_if_missing
+
+- name: Installing Homebrew
+  ansible.builtin.shell: |
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  when:
+    - not homebrew_check.stat.exists
+    - install_homebrew_if_missing
+  changed_when: true
+
+- name: Install Homebrew packages | Casks
+  community.general.homebrew_cask:
+    name: "{{ cask }}"
+    state: present
+    update_homebrew: true
+    upgrade_all: true
+  with_items: "{{ homebrew_casks }}"
+  loop_control:
+    loop_var: "cask"
+
+- name: Install Homebrew packages | Formulae
+  community.general.homebrew:
+    name: "{{ formulae }}"
+    state: present
+    update_homebrew: true
+    upgrade_all: true
+  with_items: "{{ homebrew_formulaes }}"
+  loop_control:
+    loop_var: "formulae"

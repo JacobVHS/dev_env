@@ -1,0 +1,10 @@
+---
+- name: Fail if the architecture is not arm64
+  ansible.builtin.fail:
+    msg: "This role only supports arm64 architecture."
+  when: ansible_facts['architecture'] != 'aarch64'
+
+- name: Fail if the OS is not Raspberry Pi OS
+  ansible.builtin.fail:
+    msg: "This role only supports Raspberry Pi OS."
+  when: ansible_facts['distribution'] != 'Raspbian'

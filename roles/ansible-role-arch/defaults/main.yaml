@@ -1,0 +1,43 @@
+---
+base_packages:
+  - neovim
+  - vim
+  - bat
+  - fzf
+  - zsh
+  - zsh-syntax-highlighting
+hyprland_packages:
+  - hyprland                  # Wayland compositor
+  - dunst                     # Notification daemon
+  - kitty                     # Terminal emulator
+  - dolphin                   # File manager
+  - wofi                      # Application launcher
+  - waybar                    # Top status bar
+  - xdg-desktop-portal-hyprland  # XDG portal for Wayland
+  - qt5-wayland               # Wayland support for Qt5 apps
+  - qt6-wayland               # Wayland support for Qt6 apps
+  - polkit-kde-agent          # Authentication agent for polkit
+  - grim                      # Screenshot tool
+  - slurp                     # Area selection tool for screenshots
+gpu_packages:
+  amd: ["mesa", "lib32-mesa", "vulkan-radeon", "lib32-vulkan-radeon"]
+  intel: ["mesa", "lib32-mesa", "vulkan-intel", "lib32-vulkan-intel"]
+  nvidia: ["nvidia-dkms", "nvidia-utils", "lib32-nvidia-utils"]
+additional_packages:
+  - sddm                     # Display manager
+  - networkmanager           # Networking service
+  - network-manager-applet   # GUI for NetworkManager
+  - pipewire                 # Audio subsystem
+  - pipewire-pulse           # PulseAudio compatibility layer for PipeWire
+  - wireplumber              # PipeWire session manager
+  - ttf-dejavu               # Default fonts
+  - noto-fonts               # Noto fonts for Wayland
+  - noto-fonts-emoji         # Emoji fonts
+  - ttf-font-awesome         # Icon fonts
+  - papirus-icon-theme       # Icon theme
+  - arc-gtk-theme            # GTK theme
+  - neofetch                 # System info tool
+  - htop                     # Process viewer
+  - pavucontrol              # Audio control
+
+username: jacob

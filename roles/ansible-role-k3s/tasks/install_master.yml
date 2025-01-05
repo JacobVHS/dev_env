@@ -1,0 +1,15 @@
+---
+- name: Install K3s on master node
+  ansible.builtin.shell:
+    cmd: "curl -sfL https://get.k3s.io | sh -"
+
+- name: Fetch node token from master
+  ansible.builtin.command:
+    cmd: cat /var/lib/rancher/k3s/server/node-token
+  register: k3s_token
+  changed_when: false
+
+- name: Set token as a fact
+  ansible.builtin.set_fact:
+    k3s_token: "{{ k3s_token.stdout }}"
+  delegate_to: localhost

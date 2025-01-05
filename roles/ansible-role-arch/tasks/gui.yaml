@@ -1,0 +1,59 @@
+---
+
+- name: Install Hyprland and core packages
+  community.general.pacman:
+    name: "{{ hyprland_packages }}"
+    state: present
+    update_cache: true
+
+- name: Install GPU-specific packages
+  community.general.pacman:
+    name: "{{ gpu_packages[ansible_facts['vendor'] | default('intel')] }}"
+    state: present
+
+- name: Install additional system packages
+  community.general.pacman:
+    name: "{{ additional_packages }}"
+    state: present
+
+- name: Enable and start NetworkManager service
+  ansible.builtin.systemd:
+    name: NetworkManager
+    enabled: true
+    state: started
+
+- name: Enable and start SDDM service
+  ansible.builtin.systemd:
+    name: sddm
+    enabled: true
+    state: started
+
+- name: Enable seatd service for hardware access
+  ansible.builtin.systemd:
+    name: seatd
+    enabled: true
+    state: started
+
+- name: Create Hyprland configuration directory
+  ansible.builtin.file:
+    path: ~/.config/hypr
+    state: directory
+    mode: '0755'
+
+- name: Copy Hyprland default configuration
+  ansible.builtin.copy:
+    src: /usr/share/hyprland/hyprland.conf.example
+    dest: ~/.config/hypr/hyprland.conf
+    remote_src: true
+    mode: "0600"
+
+- name: Set SDDM theme
+  ansible.builtin.lineinfile:
+    path: /etc/sddm.conf
+    line: "Current=arc-dark"
+    create: true
+    mode: "0600"
+
+- name: Display success message
+  ansible.builtin.debug:
+    msg: "Hyprland currently present. Configure it at ~/.config/hypr/hyprland.conf."

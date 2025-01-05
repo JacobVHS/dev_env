@@ -1,0 +1,9 @@
+---
+
+homebrew_formulaes:
+  - tmux
+
+homebrew_casks:
+  - kitty
+
+username: "jacobschreuder"

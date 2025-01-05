@@ -1,0 +1,14 @@
+---
+- name: Validate prerequisites
+  include_tasks: validate.yml
+
+- name: Configure kernel for cgroup v2
+  include_tasks: configure_kernel.yml
+
+- name: Install K3s on master nodes
+  include_tasks: install_master.yml
+  when: inventory_hostname in groups['master']
+
+- name: Join workers to the K3s cluster
+  include_tasks: join_workers.yml
+  when: inventory_hostname not in groups['master']

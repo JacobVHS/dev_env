@@ -1,0 +1,18 @@
+---
+dependencies: []
+
+galaxy_info:
+  role_name: macos_conf
+  author: Jacob Schreuder
+  description: Configuration Management for MacOS.
+  company: "JacobVHS"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.10
+  platforms:
+    - name: MacOS
+      versions:
+        - all
+
+  galaxy_tags:
+    - developer
+    - system

@@ -1,0 +1,15 @@
+---
+
+- name: Get user home directory
+  ansible.builtin.command:
+    cmd: "echo $HOME"
+  register: home_dir
+  changed_when: false
+
+- name: Add VS Code config file
+  ansible.builtin.template:
+    src: settings.json.j2
+    dest: "{{ home_dir }}/Library/Application\ Support/Code/User/settings.json"
+    owner: "{{ username }}"
+    group: "staff"
+    mode: "0644"
